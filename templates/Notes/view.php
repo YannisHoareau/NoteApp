@@ -32,7 +32,7 @@
                 </tr>
             </table>
             <div class="edit buttons">
-                <?= $this->Html->link(__('Edit Note'), ['action' => 'edit', $note->id], ['class' => 'button']) ?>
+                <?= $this->Html->link(__('Edit Note'), ['action' => 'edit', $note->slug], ['class' => 'button']) ?>
                 <?= $this->Form->postLink(__('Delete Note'), ['action' => 'delete', $note->id], ['confirm' => __('Are you sure you want to delete # {0}?', $note->id), 'class' => 'button']) ?>
             </div>
             <div class="text">

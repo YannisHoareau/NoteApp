@@ -23,9 +23,9 @@
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?= $this->Html->link(h($user->login), ['action' => 'view', $user->id]) ?></td>
-                    <td><?= !empty($user->firstname) ? h($user->firstname) : __('Not set yet') ?></td>
-                    <td><?= !empty($user->lastname) ? h($user->lastname) : __('Not set yet') ?></td>
-                    <td><?= !empty($user->email) ? h($user->email) : __('Not set yet') ?></td>
+                    <td><?= $user->hasValue('firstname') ? h($user->firstname) : __('Not set yet') ?></td>
+                    <td><?= $user->hasValue('lastname') ? h($user->lastname) : __('Not set yet') ?></td>
+                    <td><?= $user->hasValue('email') ? h($user->email) : __('Not set yet') ?></td>
                     <td><?= h(date('d-m-Y', strtotime($user->created))) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>

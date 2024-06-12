@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Note $note
- * @var string[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
 <div class="row">
@@ -17,9 +16,8 @@
             <fieldset>
                 <legend><?= __('Edit Note') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
+                    echo $this->Form->control('user_id', ['type' => 'text', 'readonly' => true, 'label' => __('Creator (Not changeable)'), 'value' => $note->user->login]);
                     echo $this->Form->control('title');
-                    echo $this->Form->control('slug');
                     echo $this->Form->control('body');
                 ?>
             </fieldset>

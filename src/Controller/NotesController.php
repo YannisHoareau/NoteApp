@@ -27,13 +27,13 @@ class NotesController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Note id.
+     * @param string|null $slug Note slug.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($slug = null)
     {
-        $note = $this->Notes->get($id, contain: ['Users']);
+        $note = $this->Notes->findBySlug($slug)->contain(['Users'])->firstOrFail();
         $this->set(compact('note'));
     }
 
@@ -61,13 +61,13 @@ class NotesController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Note id.
+     * @param string|null $slug Note slug.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($slug = null)
     {
-        $note = $this->Notes->get($id, contain: []);
+        $note = $this->Notes->findBySlug($slug)->contain(['Users'])->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $note = $this->Notes->patchEntity($note, $this->request->getData());
             if ($this->Notes->save($note)) {
@@ -77,8 +77,7 @@ class NotesController extends AppController
             }
             $this->Flash->error(__('The note could not be saved. Please, try again.'));
         }
-        $users = $this->Notes->Users->find('list', limit: 200)->all();
-        $this->set(compact('note', 'users'));
+        $this->set(compact('note'));
     }
 
     /**

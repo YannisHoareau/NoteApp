@@ -20,11 +20,11 @@
             <tbody>
                 <?php foreach ($notes as $note): ?>
                 <tr>
-                    <td><?= $this->Html->link(h($note->title), ['action' => 'view', $note->id]) ?></td>
+                    <td><?= $this->Html->link(h($note->title), ['action' => 'view', $note->slug]) ?></td>
                     <td><?= $note->hasValue('user') ? $this->Html->link($note->user->login, ['controller' => 'Users', 'action' => 'view', $note->user->id]) : '' ?></td>
                     <td><?= h(date('d-m-Y', strtotime($note->created))) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $note->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $note->slug]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $note->id], ['confirm' => __('Are you sure you want to delete # {0}?', $note->id)]) ?>
                     </td>
                 </tr>
