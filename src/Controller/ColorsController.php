@@ -81,14 +81,14 @@ class ColorsController extends AppController
     /**
      * Delete method
      *
-     * @param string|null $id Color id.
+     * @param string|null $title Color title.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($title = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $color = $this->Colors->get($id);
+        $color = $this->Colors->findByTitle($title)->firstOrFail();
         if ($this->Colors->delete($color)) {
             $this->Flash->success(__('The color has been deleted.'));
         } else {

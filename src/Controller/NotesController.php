@@ -102,4 +102,15 @@ class NotesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function tags(...$tags)
+    {
+        $notes = $this->Notes->find('tagged', tags: $tags)
+            ->all();
+
+        $this->set([
+            'notes' => $notes,
+            'tags' => $tags
+        ]);
+    }
 }

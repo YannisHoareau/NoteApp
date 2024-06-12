@@ -34,10 +34,6 @@
                     <th><?= __('Created') ?></th>
                     <td><?= h(date('d-m-Y', strtotime($user->created))) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h(date('d-m-Y', strtotime($user->modified))) ?></td>
-                </tr>
             </table>
             <div class="edit buttons">
                 <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->login], ['class' => 'button']) ?>

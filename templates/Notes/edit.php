@@ -18,7 +18,6 @@
             <fieldset>
                 <legend><?= __('Edit Note') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['type' => 'text', 'readonly' => true, 'label' => __('Creator (Not changeable)'), 'value' => $note->user->login]);
                     echo $this->Form->control('title');
                     echo $this->Form->control('body');
                     echo $this->Form->control('color_id', ['options' => $colors]);

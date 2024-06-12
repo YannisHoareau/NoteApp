@@ -7,6 +7,7 @@ use Cake\Event\EventInterface;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -86,13 +87,6 @@ class NotesTable extends Table
             ->notEmptyString('title');
 
         $validator
-            ->scalar('slug')
-            ->maxLength('slug', 191)
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
             ->scalar('body')
             ->allowEmptyString('body');
 
@@ -119,6 +113,11 @@ class NotesTable extends Table
     {
         if ($entity->tag_string) {
             $entity->tags = $this->_buildTags($entity->tag_string);
+        }
+
+        if ($entity->isNew() && !$entity->slug) {
+            $sluggedTitle = Text::slug($entity->title);
+            $entity->slug = substr($sluggedTitle, 0, 191);
         }
 
     }
@@ -154,5 +153,30 @@ class NotesTable extends Table
         }
 
         return $out;
+    }
+
+    public function findTagged(SelectQuery $query, array $tags = []): SelectQuery
+    {
+        $columns = [
+            'Notes.id', 'Notes.user_id', 'Notes.color_id',
+            'Notes.title', 'Notes.body', 'Notes.modified',
+            'Notes.created', 'Notes.slug',
+        ];
+
+        $query = $query
+            ->select($columns)
+            ->distinct($columns);
+
+        if (empty($tags)) {
+            // If there are no tags provided, find articles that have no tags.
+            $query->leftJoinWith('Tags')
+                ->where(['Tags.title IS' => null]);
+        } else {
+            // Find articles that have one or more of the provided tags.
+            $query->innerJoinWith('Tags')
+                ->where(['Tags.title IN' => $tags]);
+        }
+
+        return $query->groupBy(['Notes.id']);
     }
 }

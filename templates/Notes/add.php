@@ -21,7 +21,6 @@
                     echo $this->Form->control('user_id', ['options' => $users]);
                     echo $this->Form->control('color_id', ['options' => $colors]);
                     echo $this->Form->control('title');
-                    echo $this->Form->control('slug');
                     echo $this->Form->control('body');
                     echo $this->Form->control('tag_string', ['type' => 'text']);
                 ?>
