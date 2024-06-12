@@ -40,8 +40,8 @@
                 </tr>
             </table>
             <div class="edit buttons">
-                <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'button']) ?>
-                <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'button']) ?>
+                <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->login], ['class' => 'button']) ?>
+                <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete "{0}" user?', $user->login), 'class' => 'button']) ?>
             </div>
             <div class="related">
                 <h4><?= __('Related Notes') ?></h4>

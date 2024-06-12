@@ -26,13 +26,13 @@ class UsersController extends AppController
     /**
      * View method
      *
-     * @param string|null $id User id.
+     * @param string|null $login User id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($login = null)
     {
-        $user = $this->Users->get($id, contain: ['Notes']);
+        $user = $this->Users->findByLogin($login)->contain(['Notes'])->firstOrFail();
         $this->set(compact('user'));
     }
 
@@ -59,13 +59,13 @@ class UsersController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id User id.
+     * @param string|null $login User id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($login = null)
     {
-        $user = $this->Users->get($id, contain: []);
+        $user = $this->Users->findByLogin($login)->contain([])->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
