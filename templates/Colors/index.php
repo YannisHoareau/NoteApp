@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var iterable<\Cake\Datasource\EntityInterface> $colors
+ * @var iterable<\App\Model\Entity\Color> $colors
  */
 ?>
 <div class="colors index content">
@@ -11,7 +11,6 @@
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('hexa_code') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -20,13 +19,11 @@
             <tbody>
                 <?php foreach ($colors as $color): ?>
                 <tr>
-                    <td><?= $this->Number->format($color->id) ?></td>
-                    <td><?= h($color->title) ?></td>
+                    <td><?= $this->Html->link(h($color->title), ['action' => 'view', $color->title]) ?></td>
                     <td><?= h($color->hexa_code) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $color->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $color->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $color->id], ['confirm' => __('Are you sure you want to delete # {0}?', $color->id)]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $color->title]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $color->title], ['confirm' => __('Are you sure you want to delete color "{0}" ?', $color->title)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

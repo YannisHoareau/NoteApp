@@ -1,17 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \Cake\Datasource\EntityInterface $color
+ * @var \App\Model\Entity\Color $color
  */
 ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Color'), ['action' => 'edit', $color->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Color'), ['action' => 'delete', $color->id], ['confirm' => __('Are you sure you want to delete # {0}?', $color->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Colors'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Color'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <h3 class="heading"><?= $this->Html->link(__('List Colors'), ['action' => 'index'], ['class' => 'side-nav-item'])?></h3>
         </div>
     </aside>
     <div class="column column-80">
@@ -26,11 +22,11 @@
                     <th><?= __('Hexa Code') ?></th>
                     <td><?= h($color->hexa_code) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($color->id) ?></td>
-                </tr>
             </table>
+            <div class="edit buttons">
+                <?= $this->Html->link(__('Edit Color'), ['action' => 'edit', $color->title], ['class' => 'button']) ?>
+                <?= $this->Form->postLink(__('Delete Color'), ['action' => 'delete', $color->title], ['confirm' => __('Are you sure you want to delete color "{0}" ?', $color->title), 'class' => 'button']) ?>
+            </div>
         </div>
     </div>
 </div>

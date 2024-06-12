@@ -7,11 +7,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Tag'), ['action' => 'edit', $tag->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Tag'), ['action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tag->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Tags'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Tag'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <h3 class="heading"><?= $this->Html->link(__('List Tags'), ['action' => 'index'], ['class' => 'side-nav-item']) ?></h3>
         </div>
     </aside>
     <div class="column column-80">
@@ -23,10 +19,6 @@
                     <td><?= h($tag->title) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($tag->id) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Created') ?></th>
                     <td><?= h($tag->created) ?></td>
                 </tr>
@@ -35,30 +27,9 @@
                     <td><?= h($tag->modified) ?></td>
                 </tr>
             </table>
-            <div class="related">
-                <h4><?= __('Related Articles Tags') ?></h4>
-                <?php if (!empty($tag->articles_tags)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Note Id') ?></th>
-                            <th><?= __('Tag Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($tag->articles_tags as $articlesTag) : ?>
-                        <tr>
-                            <td><?= h($articlesTag->note_id) ?></td>
-                            <td><?= h($articlesTag->tag_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'ArticlesTags', 'action' => 'view', $articlesTag->note_id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'ArticlesTags', 'action' => 'edit', $articlesTag->note_id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'ArticlesTags', 'action' => 'delete', $articlesTag->note_id], ['confirm' => __('Are you sure you want to delete # {0}?', $articlesTag->note_id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
+            <div class="edit buttons">
+                <?= $this->Html->link(__('Edit Tag'), ['action' => 'edit', $tag->title], ['class' => 'button']) ?>
+                <?= $this->Form->postLink(__('Delete Tag'), ['action' => 'delete', $tag->title], ['confirm' => __('Are you sure you want to delete tag "{0}" ?', $tag->title), 'class' => 'button']) ?>
             </div>
         </div>
     </div>

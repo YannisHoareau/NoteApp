@@ -11,8 +11,6 @@ use Cake\Validation\Validator;
 /**
  * Tags Model
  *
- * @property \App\Model\Table\ArticlesTagsTable&\Cake\ORM\Association\HasMany $ArticlesTags
- *
  * @method \App\Model\Entity\Tag newEmptyEntity()
  * @method \App\Model\Entity\Tag newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Tag> newEntities(array $data, array $options = [])
@@ -47,7 +45,7 @@ class TagsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('ArticlesTags', [
+        $this->hasMany('NoteTags', [
             'foreignKey' => 'tag_id',
         ]);
     }

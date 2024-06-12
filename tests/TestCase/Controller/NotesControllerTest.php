@@ -25,7 +25,8 @@ class NotesControllerTest extends TestCase
         'app.Notes',
         'app.Users',
         'app.Colors',
-        'app.ArticlesTags',
+        'app.Tags',
+        'app.NotesTags',
     ];
 
     /**

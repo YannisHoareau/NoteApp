@@ -26,13 +26,13 @@ class TagsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Tag id.
+     * @param string|null $title Tag title.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($title = null)
     {
-        $tag = $this->Tags->get($id, contain: ['ArticlesTags']);
+        $tag = $this->Tags->findByTitle($title)->firstOrFail();
         $this->set(compact('tag'));
     }
 
@@ -59,13 +59,13 @@ class TagsController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Tag id.
+     * @param string|null $title Tag title.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($title = null)
     {
-        $tag = $this->Tags->get($id, contain: []);
+        $tag = $this->Tags->findByTitle($title)->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
@@ -81,14 +81,14 @@ class TagsController extends AppController
     /**
      * Delete method
      *
-     * @param string|null $id Tag id.
+     * @param string|null $title Tag title.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($title = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $tag = $this->Tags->get($id);
+        $tag = $this->Tags->findByTitle($title)->firstOrFail();
         if ($this->Tags->delete($tag)) {
             $this->Flash->success(__('The tag has been deleted.'));
         } else {

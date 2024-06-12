@@ -1,6 +1,6 @@
 USE note_app;
 
-DROP TABLE IF EXISTS articles_tags;
+DROP TABLE IF EXISTS notes_tags;
 DROP TABLE IF EXISTS notes;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS colors;
@@ -47,7 +47,7 @@ CREATE TABLE tags (
     UNIQUE KEY (title)
 ) CHARSET=utf8mb4;
 
-CREATE TABLE articles_tags (
+CREATE TABLE notes_tags (
     note_id INT NOT NULL,
     tag_id INT NOT NULL,
     PRIMARY KEY (note_id, tag_id),

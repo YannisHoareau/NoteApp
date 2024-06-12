@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Event\EventInterface;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -13,7 +14,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\ColorsTable&\Cake\ORM\Association\BelongsTo $Colors
- * @property \App\Model\Table\ArticlesTagsTable&\Cake\ORM\Association\HasMany $ArticlesTags
  *
  * @method \App\Model\Entity\Note newEmptyEntity()
  * @method \App\Model\Entity\Note newEntity(array $data, array $options = [])
@@ -57,8 +57,9 @@ class NotesTable extends Table
             'foreignKey' => 'color_id',
             'joinType' => 'INNER',
         ]);
-        $this->hasMany('ArticlesTags', [
-            'foreignKey' => 'note_id',
+        $this->belongsToMany('Tags', [
+            'joinTable' => 'notes_tags',
+            'dependent' => true,
         ]);
     }
 
@@ -112,5 +113,46 @@ class NotesTable extends Table
         $rules->add($rules->existsIn(['color_id'], 'Colors'), ['errorField' => 'color_id']);
 
         return $rules;
+    }
+
+    public function beforeSave(EventInterface $event, $entity, $options)
+    {
+        if ($entity->tag_string) {
+            $entity->tags = $this->_buildTags($entity->tag_string);
+        }
+
+    }
+
+    protected function _buildTags($tagString)
+    {
+        // Trim tags
+        $newTags = array_map('trim', explode(',', $tagString));
+        // Remove all empty tags
+        $newTags = array_filter($newTags);
+        // Reduce duplicated tags
+        $newTags = array_unique($newTags);
+
+        $out = [];
+        $tags = $this->Tags->find()
+            ->where(['Tags.title IN' => $newTags])
+            ->all();
+
+        // Remove existing tags from the list of new tags.
+        foreach ($tags->extract('title') as $existing) {
+            $index = array_search($existing, $newTags);
+            if ($index !== false) {
+                unset($newTags[$index]);
+            }
+        }
+        // Add existing tags.
+        foreach ($tags as $tag) {
+            $out[] = $tag;
+        }
+        // Add new tags.
+        foreach ($newTags as $tag) {
+            $out[] = $this->Tags->newEntity(['title' => $tag]);
+        }
+
+        return $out;
     }
 }

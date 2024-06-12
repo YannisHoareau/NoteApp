@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Cake\Collection\Collection;
 use Cake\ORM\Entity;
 
 /**
@@ -19,7 +20,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Color $color
- * @property \App\Model\Entity\ArticlesTag[] $articles_tags
+ * @property \App\Model\Entity\Tag[] $tags
  */
 class Note extends Entity
 {
@@ -42,6 +43,23 @@ class Note extends Entity
         'modified' => true,
         'user' => true,
         'color' => true,
-        'articles_tags' => true,
+//        'tags' => true,
+        'tag_string' => true,
     ];
+
+    protected function _getTagString()
+    {
+        if (isset($this->_fields['tag_string'])) {
+            return $this->_fields['tag_string'];
+        }
+        if (empty($this->tags)) {
+            return '';
+        }
+        $tags = new Collection($this->tags);
+        $str = $tags->reduce(function ($string, $tag) {
+            return $string . $tag->title . ', ';
+        }, '');
+
+        return trim($str, ', ');
+    }
 }

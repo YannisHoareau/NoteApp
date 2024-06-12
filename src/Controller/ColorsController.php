@@ -6,6 +6,7 @@ namespace App\Controller;
 /**
  * Colors Controller
  *
+ * @property \App\Model\Table\ColorsTable $Colors
  */
 class ColorsController extends AppController
 {
@@ -25,13 +26,13 @@ class ColorsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Color id.
+     * @param string|null $title Color id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($title = null)
     {
-        $color = $this->Colors->get($id, contain: []);
+        $color = $this->Colors->findByTitle($title)->firstOrFail();
         $this->set(compact('color'));
     }
 
@@ -58,13 +59,13 @@ class ColorsController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Color id.
+     * @param string|null $title Color title.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($title = null)
     {
-        $color = $this->Colors->get($id, contain: []);
+        $color = $this->Colors->findByTitle($title)->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $color = $this->Colors->patchEntity($color, $this->request->getData());
             if ($this->Colors->save($color)) {

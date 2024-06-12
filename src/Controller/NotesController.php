@@ -27,13 +27,13 @@ class NotesController extends AppController
     /**
      * View method
      *
-     * @param string|null $slug Note slug.
+     * @param string|null $id Note id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($slug = null)
     {
-        $note = $this->Notes->get($slug, contain: ['Users', 'Colors', 'ArticlesTags']);
+        $note = $this->Notes->findBySlug($slug)->contain(['Users', 'Colors', 'Tags'])->firstOrFail();
         $this->set(compact('note'));
     }
 
@@ -56,7 +56,8 @@ class NotesController extends AppController
         }
         $users = $this->Notes->Users->find('list', limit: 200)->all();
         $colors = $this->Notes->Colors->find('list', limit: 200)->all();
-        $this->set(compact('note', 'users', 'colors'));
+        $tags = $this->Notes->Tags->find('list', limit: 200)->all();
+        $this->set(compact('note', 'users', 'colors', 'tags'));
     }
 
     /**
@@ -68,7 +69,7 @@ class NotesController extends AppController
      */
     public function edit($slug = null)
     {
-        $note = $this->Notes->findBySlug($slug)->contain(['Users', ['Colors']])->firstOrFail();
+        $note = $this->Notes->findBySlug($slug)->contain(['Users', 'Colors', 'Tags'])->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $note = $this->Notes->patchEntity($note, $this->request->getData());
             if ($this->Notes->save($note)) {
@@ -78,7 +79,8 @@ class NotesController extends AppController
             }
             $this->Flash->error(__('The note could not be saved. Please, try again.'));
         }
-        $this->set(compact('note'));
+        $colors = $this->Notes->Colors->find('list', limit: 200)->all();
+        $this->set(compact('note', 'colors'));
     }
 
     /**

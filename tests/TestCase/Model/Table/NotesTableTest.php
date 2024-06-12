@@ -27,7 +27,7 @@ class NotesTableTest extends TestCase
         'app.Notes',
         'app.Users',
         'app.Colors',
-        'app.ArticlesTags',
+        'app.Tags',
     ];
 
     /**

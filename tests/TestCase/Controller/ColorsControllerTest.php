@@ -23,6 +23,7 @@ class ColorsControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Colors',
+        'app.Notes',
     ];
 
     /**
