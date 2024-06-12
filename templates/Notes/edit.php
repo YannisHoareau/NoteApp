@@ -8,13 +8,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $note->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $note->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Notes'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading"><?= $this->Html->link(__('List Notes'), ['action' => 'index'], ['class' => 'side-nav-item']) ?></h4>
         </div>
     </aside>
     <div class="column column-80">
@@ -29,7 +23,10 @@
                     echo $this->Form->control('body');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <div class="edit buttons">
+                <?= $this->Form->button(__('Save')) ?>
+                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $note->id], ['confirm' => __('Are you sure you want to delete # {0}?', $note->id), 'class' => 'button']) ?>
+            </div>
             <?= $this->Form->end() ?>
         </div>
     </div>
