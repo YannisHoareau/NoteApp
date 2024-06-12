@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\NotesTable;
+use App\Model\Table\ColorsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\NotesTable Test Case
+ * App\Model\Table\ColorsTable Test Case
  */
-class NotesTableTest extends TestCase
+class ColorsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\NotesTable
+     * @var \App\Model\Table\ColorsTable
      */
-    protected $Notes;
+    protected $Colors;
 
     /**
      * Fixtures
@@ -24,10 +24,8 @@ class NotesTableTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Notes',
-        'app.Users',
         'app.Colors',
-        'app.ArticlesTags',
+        'app.Notes',
     ];
 
     /**
@@ -38,8 +36,8 @@ class NotesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Notes') ? [] : ['className' => NotesTable::class];
-        $this->Notes = $this->getTableLocator()->get('Notes', $config);
+        $config = $this->getTableLocator()->exists('Colors') ? [] : ['className' => ColorsTable::class];
+        $this->Colors = $this->getTableLocator()->get('Colors', $config);
     }
 
     /**
@@ -49,7 +47,7 @@ class NotesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Notes);
+        unset($this->Colors);
 
         parent::tearDown();
     }
@@ -58,7 +56,7 @@ class NotesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\NotesTable::validationDefault()
+     * @uses \App\Model\Table\ColorsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -69,7 +67,7 @@ class NotesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\NotesTable::buildRules()
+     * @uses \App\Model\Table\ColorsTable::buildRules()
      */
     public function testBuildRules(): void
     {

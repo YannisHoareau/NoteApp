@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\NotesController;
+use App\Controller\TagsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\NotesController Test Case
+ * App\Controller\TagsController Test Case
  *
- * @uses \App\Controller\NotesController
+ * @uses \App\Controller\TagsController
  */
-class NotesControllerTest extends TestCase
+class TagsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,9 +22,7 @@ class NotesControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Notes',
-        'app.Users',
-        'app.Colors',
+        'app.Tags',
         'app.ArticlesTags',
     ];
 
@@ -32,7 +30,7 @@ class NotesControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\NotesController::index()
+     * @uses \App\Controller\TagsController::index()
      */
     public function testIndex(): void
     {
@@ -43,7 +41,7 @@ class NotesControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\NotesController::view()
+     * @uses \App\Controller\TagsController::view()
      */
     public function testView(): void
     {
@@ -54,7 +52,7 @@ class NotesControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\NotesController::add()
+     * @uses \App\Controller\TagsController::add()
      */
     public function testAdd(): void
     {
@@ -65,7 +63,7 @@ class NotesControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\NotesController::edit()
+     * @uses \App\Controller\TagsController::edit()
      */
     public function testEdit(): void
     {
@@ -76,7 +74,7 @@ class NotesControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\NotesController::delete()
+     * @uses \App\Controller\TagsController::delete()
      */
     public function testDelete(): void
     {

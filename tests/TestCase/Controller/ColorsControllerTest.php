@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\NotesController;
+use App\Controller\ColorsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\NotesController Test Case
+ * App\Controller\ColorsController Test Case
  *
- * @uses \App\Controller\NotesController
+ * @uses \App\Controller\ColorsController
  */
-class NotesControllerTest extends TestCase
+class ColorsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,17 +22,14 @@ class NotesControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Notes',
-        'app.Users',
         'app.Colors',
-        'app.ArticlesTags',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\NotesController::index()
+     * @uses \App\Controller\ColorsController::index()
      */
     public function testIndex(): void
     {
@@ -43,7 +40,7 @@ class NotesControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\NotesController::view()
+     * @uses \App\Controller\ColorsController::view()
      */
     public function testView(): void
     {
@@ -54,7 +51,7 @@ class NotesControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\NotesController::add()
+     * @uses \App\Controller\ColorsController::add()
      */
     public function testAdd(): void
     {
@@ -65,7 +62,7 @@ class NotesControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\NotesController::edit()
+     * @uses \App\Controller\ColorsController::edit()
      */
     public function testEdit(): void
     {
@@ -76,7 +73,7 @@ class NotesControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\NotesController::delete()
+     * @uses \App\Controller\ColorsController::delete()
      */
     public function testDelete(): void
     {

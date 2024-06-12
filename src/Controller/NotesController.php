@@ -18,7 +18,7 @@ class NotesController extends AppController
     public function index()
     {
         $query = $this->Notes->find()
-            ->contain(['Users']);
+            ->contain(['Users', 'Colors']);
         $notes = $this->paginate($query);
 
         $this->set(compact('notes'));
@@ -33,7 +33,7 @@ class NotesController extends AppController
      */
     public function view($slug = null)
     {
-        $note = $this->Notes->findBySlug($slug)->contain(['Users'])->firstOrFail();
+        $note = $this->Notes->get($slug, contain: ['Users', 'Colors', 'ArticlesTags']);
         $this->set(compact('note'));
     }
 
@@ -55,7 +55,8 @@ class NotesController extends AppController
             $this->Flash->error(__('The note could not be saved. Please, try again.'));
         }
         $users = $this->Notes->Users->find('list', limit: 200)->all();
-        $this->set(compact('note', 'users'));
+        $colors = $this->Notes->Colors->find('list', limit: 200)->all();
+        $this->set(compact('note', 'users', 'colors'));
     }
 
     /**
@@ -67,7 +68,7 @@ class NotesController extends AppController
      */
     public function edit($slug = null)
     {
-        $note = $this->Notes->findBySlug($slug)->contain(['Users'])->firstOrFail();
+        $note = $this->Notes->findBySlug($slug)->contain(['Users', ['Colors']])->firstOrFail();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $note = $this->Notes->patchEntity($note, $this->request->getData());
             if ($this->Notes->save($note)) {

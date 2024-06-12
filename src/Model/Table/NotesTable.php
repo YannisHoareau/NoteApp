@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  * Notes Model
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ColorsTable&\Cake\ORM\Association\BelongsTo $Colors
+ * @property \App\Model\Table\ArticlesTagsTable&\Cake\ORM\Association\HasMany $ArticlesTags
  *
  * @method \App\Model\Entity\Note newEmptyEntity()
  * @method \App\Model\Entity\Note newEntity(array $data, array $options = [])
@@ -51,6 +53,13 @@ class NotesTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Colors', [
+            'foreignKey' => 'color_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('ArticlesTags', [
+            'foreignKey' => 'note_id',
+        ]);
     }
 
     /**
@@ -64,6 +73,10 @@ class NotesTable extends Table
         $validator
             ->integer('user_id')
             ->notEmptyString('user_id');
+
+        $validator
+            ->integer('color_id')
+            ->notEmptyString('color_id');
 
         $validator
             ->scalar('title')
@@ -96,6 +109,7 @@ class NotesTable extends Table
     {
         $rules->add($rules->isUnique(['slug']), ['errorField' => 'slug']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['color_id'], 'Colors'), ['errorField' => 'color_id']);
 
         return $rules;
     }
