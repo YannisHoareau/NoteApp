@@ -11,7 +11,8 @@ CREATE TABLE users (
                        email VARCHAR(255),
                        password VARCHAR(255) NOT NULL,
                        created DATETIME,
-                       modified DATETIME
+                       modified DATETIME,
+                       UNIQUE KEY (login)
 );
 
 CREATE TABLE notes (
