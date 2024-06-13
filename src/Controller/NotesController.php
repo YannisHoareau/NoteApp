@@ -17,11 +17,24 @@ class NotesController extends AppController
      */
     public function index()
     {
-        $query = $this->Notes->find()
-            ->contain(['Users', 'Colors']);
+        $query = $this->Notes->find()->contain(['Users', 'Colors']);
         $notes = $this->paginate($query);
 
         $this->set(compact('notes'));
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function showPersonal()
+    {
+        $query = $this->Notes->findByUserId($this->request->getAttribute('identity')['id'])->contain(['Users', 'Colors']);
+        $notes = $this->paginate($query);
+
+        $this->set(compact('notes'));
+        $this->render('index');
     }
 
     /**
@@ -54,10 +67,9 @@ class NotesController extends AppController
             }
             $this->Flash->error(__('The note could not be saved. Please, try again.'));
         }
-        $users = $this->Notes->Users->find('list', limit: 200)->all();
         $colors = $this->Notes->Colors->find('list', limit: 200)->all();
         $tags = $this->Notes->Tags->find('list', limit: 200)->all();
-        $this->set(compact('note', 'users', 'colors', 'tags'));
+        $this->set(compact('note', 'colors', 'tags'));
     }
 
     /**

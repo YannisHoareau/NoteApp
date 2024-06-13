@@ -36,15 +36,35 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <a href="<?= $this->Url->build('/') ?>"><span>Note-</span>App</a>
+            <?php
+                if ($user = $this->request->getAttribute('identity')) {
+                    echo __('Logged in as: {0}', $this->request->getAttribute('identity')['login']);
+                }
+            ?>
         </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+        <div class="top-nav-actions">
+            <?php
+                $this->loadHelper('Authentication.Identity');
+                if ($this->Identity->isLoggedIn()) {
+                    $action = 'logout';
+                } else {
+                    $action = 'login';
+                }
+                echo $this->Html->link(__($action), ['controller' => 'Users', 'action' => $action], ['class' => 'button']);
+            ?>
         </div>
     </nav>
     <main class="main">
         <div class="container">
+            <?php if ($this->request->getParam('action') != 'login'): ?>
+                <div class="row">
+                    <div class="column column-10"><?= $this->Html->link(__('Users'), ['controller' => 'Users', 'action' => 'index']) ?></div>
+                    <div class="column column-10"><?= $this->Html->link(__('Notes'), ['controller' => 'Notes', 'action' => 'index']) ?></div>
+                    <div class="column column-10"><?= $this->Html->link(__('Colors'), ['controller' => 'Colors', 'action' => 'index']) ?></div>
+                    <div class="column column-10"><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index']) ?></div>
+                </div>
+            <?php endif; ?>
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
         </div>

@@ -45,7 +45,7 @@
                 <h4><?= __('Related Tags') ?></h4>
                 <?= h($note->tag_string) ?>
             </div>
-            <div>
+            <div class="bottom-action-button">
                 <?= $this->Html->link(__('Edit Note'), ['action' => 'edit', $note->slug], ['class' => 'button']) ?>
                 <?= $this->Form->postLink(__('Delete Note'), ['action' => 'delete', $note->id], ['confirm' => __('Are you sure you want to delete note "{0}"?', $note->title), 'class' => 'button']) ?>
             </div>

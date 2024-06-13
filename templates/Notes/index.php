@@ -6,6 +6,13 @@
 ?>
 <div class="notes index content">
     <?= $this->Html->link(__('New Note'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?php
+        if ($this->request->getParam('action') == 'index') {
+            echo $this->Html->link(__('My notes'), ['action' => 'showPersonal'], ['class' => 'button float-right']);
+        } else {
+            echo $this->Html->link(__('All notes'), ['action' => 'index'], ['class' => 'button float-right']);
+        }
+    ?>
     <h3><?= __('Notes') ?></h3>
     <div class="table-responsive">
         <table>

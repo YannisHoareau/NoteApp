@@ -18,9 +18,14 @@
             <fieldset>
                 <legend><?= __('Add Note') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control('color_id', ['options' => $colors]);
+                    $user = $this->request->getAttribute('identity');
+                    echo $this->Form->control('user_id', ['hidden' => true,
+                        'readonly' => true,
+                        'type' => 'text',
+                        'label' => __('Note author: {0}', $user['login']),
+                        'value' => $user['id']]);
                     echo $this->Form->control('title');
+                    echo $this->Form->control('color_id', ['options' => $colors]);
                     echo $this->Form->control('body');
                     echo $this->Form->control('tag_string', ['type' => 'text']);
                 ?>
