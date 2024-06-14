@@ -55,6 +55,15 @@ CREATE TABLE notes_tags (
     FOREIGN KEY note_key(note_id) REFERENCES notes(id)
 );
 
+CREATE TABLE password_reset_token (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(191),
+    exp_date DATETIME,
+    UNIQUE KEY (token),
+    FOREIGN KEY rp_user_key (user_id) REFERENCES users(id)
+) CHARSET=utf8mb4;
+
 INSERT INTO users (login, firstname, password, created, modified)
 VALUES
     ('admin', 'admin', 'password', NOW(), NOW());

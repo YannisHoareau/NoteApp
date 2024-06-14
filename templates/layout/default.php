@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Rao\'s Note-App';
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,7 +57,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <main class="main">
         <div class="container">
-            <?php if ($this->request->getParam('action') != 'login'): ?>
+            <?php if (!in_array($this->request->getParam('action'), ['login', 'resetPassword', 'setNewPassword'])): ?>
                 <div class="row">
                     <div class="column column-10"><?= $this->Html->link(__('Users'), ['controller' => 'Users', 'action' => 'index']) ?></div>
                     <div class="column column-10"><?= $this->Html->link(__('Notes'), ['controller' => 'Notes', 'action' => 'index']) ?></div>

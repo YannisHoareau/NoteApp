@@ -66,6 +66,10 @@ return function (RouteBuilder $routes): void {
             $builder->connect('/tagged/*', ['controller' => 'Notes', 'action' => 'tags']);
         });
 
+        $builder->scope('/users', function (RouteBuilder $builder) {
+            $builder->connect('/set-new-password/*', ['controller' => 'Users', 'action' => 'setNewPassword']);
+        });
+
         /*
          * Connect catchall routes for all controllers.
          *

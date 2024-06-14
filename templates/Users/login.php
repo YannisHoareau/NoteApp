@@ -10,6 +10,7 @@
     <div class="bottom-action-button">
         <?= $this->Form->submit(__('Login')); ?>
         <?= $this->Html->link(__('Sign up'), ['action' => 'add'], ['class'=> 'button']) ?>
+        <?= $this->Html->link(__('Forgot password'), ['action' => 'resetPassword'], ['class'=> 'button']) ?>
     </div>
     <?= $this->Form->end() ?>
 </div>
